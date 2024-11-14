@@ -80,7 +80,7 @@ def monitorar_cep():
                 print(f"Campo CEP não encontrado ou está vazio para o deal {deal_id}")
             
             # Adiciona delay entre requisições para evitar bloqueios
-            time.sleep(5)  # Delay de 1 segundo entre as requisições (ajuste conforme necessário)
+            time.sleep(2)  # Delay de 1 segundo entre as requisições (ajuste conforme necessário)
 
 def main():
     monitorar_cep()
