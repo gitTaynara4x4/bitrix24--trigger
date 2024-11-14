@@ -4,7 +4,7 @@ import requests
 WEBHOOK_URL = "https://marketingsolucoes.bitrix24.com.br/rest/35002/7a2nuej815yjx5bg"
 
 # ID do fluxo de trabalho que você quer disparar
-WORKFLOW_ID = 1438  # Use o ID do fluxo de trabalho que você quer rodar
+WORKFLOW_ID = 1438  # ID do fluxo de trabalho
 
 # O campo personalizado que você quer monitorar
 CUSTOM_FIELD = "UF_CRM_1700661314351"
@@ -21,7 +21,8 @@ def obter_deals():
         # Retorna os dados dos negócios em formato JSON
         return response.json()
     else:
-        print(f"Erro ao obter os negócios: {response.text}")
+        print(f"Erro ao obter os negócios. Código de resposta: {response.status_code}")
+        print(f"Resposta: {response.text}")
         return None
 
 # Função para disparar o fluxo de trabalho
@@ -41,7 +42,16 @@ def disparar_fluxo_trabalho(deal_id):
     if response.status_code == 200:
         print(f"Fluxo de trabalho {WORKFLOW_ID} disparado com sucesso para o deal {deal_id}")
     else:
-        print(f"Erro ao disparar o fluxo de trabalho: {response.text}")
+        print(f"Erro ao disparar o fluxo de trabalho. Código de resposta: {response.status_code}")
+        print(f"Resposta: {response.text}")
+        if response.status_code == 400:
+            print("Possível erro na solicitação: Verifique o formato do 'DOCUMENT_ID' ou 'TEMPLATE_ID'.")
+        elif response.status_code == 403:
+            print("Erro de autorização: Verifique se o token do webhook tem permissões adequadas.")
+        elif response.status_code == 404:
+            print("Fluxo de trabalho não encontrado: Verifique o ID do fluxo de trabalho.")
+        else:
+            print(f"Resposta inesperada: {response.text}")
 
 def monitorar_cep():
     # Obtém a lista de negócios
@@ -73,6 +83,6 @@ def monitorar_cep():
 # Função principal
 def main():
     monitorar_cep()
-    
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=2138)
+
+if __name__ == "__main__":
+    main()
