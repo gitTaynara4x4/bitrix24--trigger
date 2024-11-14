@@ -73,6 +73,6 @@ def monitorar_cep():
 # Função principal
 def main():
     monitorar_cep()
-
-if __name__ == "__main__":
-    main()
+    
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=2138)
