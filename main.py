@@ -69,17 +69,17 @@ def monitorar_cep():
     if deals:
         for deal in deals:
             deal_id = deal['ID']
+            # Verificando se o campo personalizado 'UF_CRM_1700661314351' está presente
             cep_atual = deal.get(CUSTOM_FIELD)
-
-            if cep_atual:  # Verifica se o campo existe e tem valor
+            
+            if cep_atual:  # Se o campo tiver valor, dispara o fluxo de trabalho
                 print(f"Campo CEP encontrado para o deal {deal_id}: {cep_atual}")
-                # Aqui você pode comparar com valor anterior e disparar o fluxo
-                # Exemplo: Comparar com valor anterior e disparar o fluxo
                 disparar_fluxo_trabalho(deal_id)
             else:
+                # Caso o campo não exista ou esteja vazio, apenas registra o erro e continua
                 print(f"Campo CEP não encontrado ou está vazio para o deal {deal_id}")
-
-            # Delay para evitar sobrecarga de requisições
+            
+            # Adiciona delay entre requisições para evitar bloqueios
             time.sleep(1)  # Delay de 1 segundo entre as requisições (ajuste conforme necessário)
 
 def main():
