@@ -1,8 +1,16 @@
 import requests
 import time
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+CODIGO_BITRIX = os.getenv('CODIGO_BITRIX')
+CODIGO_BITRIX_STR = os.getenv('CODIGO_BITRIX_STR')
+PROFILE = os.getenv('PROFILE')
+BASE_URL_API_BITRIX = os.getenv('BASE_URL_API_BITRIX')
 
 # URL do Webhook Bitrix24
-WEBHOOK_URL = "https://marketingsolucoes.bitrix24.com.br/rest/35002/7a2nuej815yjx5bg"
+WEBHOOK_URL = f"{BASE_URL_API_BITRIX}/{PROFILE}/{CODIGO_BITRIX}/"
 
 # O campo personalizado que você quer monitorar
 CUSTOM_FIELD = "UF_CRM_1700661314351"
